@@ -1,0 +1,105 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.JS Basic</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="/upload">Upload file</a>
+    </div>
+
+    <div>
+        <div class="w3-container">
+            <table>
+                <tr>
+                    <td><h1>List users Table </h4></td>
+            
+                    <td><h5 style="color: green; text-align: right;"><%= message %></h4></td>
+                </tr>
+            </table>
+
+            <table class="w3-table-all w3-hoverable">
+                <thead>
+                    <tr class="w3-light-grey">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Class</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <% for(let i=0; i < dataUser.length; i++) { %>
+                        <tr>
+                            <td>
+                                <%= dataUser[i].student_id %>
+                            </td>
+                            <td>
+                                <%= dataUser[i].student_name %>
+                            </td>
+                            <td>
+                                <%= dataUser[i].age %>
+                            </td>
+                            <td>
+                                <%= dataUser[i].class_name %>
+                            </td>
+                            <td style="display: flex; gap: 15px;">
+                                <form>
+                                    <a class="btn-detail" href="/detail/user/<%= dataUser[i].student_id %>"
+                                        target="_blank">Detail</a>
+                                </form>
+
+                                <form action="/edit-user/<%= dataUser[i].student_id %>" method="GET">
+                                    <button type="submit">Edit</button>
+                                </form>
+
+                                <form action="/delete-user" method="POST">
+                                    <input type="text" hidden value="<%= dataUser[i].student_id %>" name="userId" />
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+
+            </table>
+        </div>
+        <div class="create-user-container">
+            <form action="/create-new-user" method="POST">
+                <div><b>Create a new user:</b></div>
+                <div>
+                    <label>Student Name:</label>
+                    <input type="text" name="student_name" />
+                </div>
+                <div>
+                    <label>Age:</label>
+                    <input type="text" name="age" />
+                </div>
+                <div>
+                    <label>Class</label>
+                    <select name="class_id">
+                        <% for(let i = 0; i < classes.length; i++){ %>
+                                  <option value="<%= classes[i].class_id %>"><%= classes[i].class_name %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" class="btn-submit">Submit</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
